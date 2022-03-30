@@ -20,18 +20,20 @@ public class Node<T> {
 
     public String printTree() {
         Map<Integer, List<T>> map = new TreeMap<>();
-        fillMap(this, map, 0);
+        fillMap(map, 0);
         return buildString(map);
     }
 
-    private void fillMap(Node<T> node, Map<Integer, List<T>> map, int level) {
-        if (node != null) {
-            if (node.left == null && node.right == null) {
-                put(map, level, node.value);
-            } else {
-                put(map, level, node.value);
-                fillMap(node.left, map, level+1);
-                fillMap(node.right, map, level+1);
+    private void fillMap(Map<Integer, List<T>> map, int level) {
+        if (left == null && right == null) {
+            put(map, level, value);
+        } else {
+            put(map, level, value);
+            if (left != null) {
+                left.fillMap(map, level + 1);
+            }
+            if (right != null) {
+                right.fillMap(map, level + 1);
             }
         }
     }
